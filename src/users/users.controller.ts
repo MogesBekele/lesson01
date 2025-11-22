@@ -10,6 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto.ts/create-user-dto';
+import { UpdateUserDto } from './dto.ts/update-user-dto';
 @Controller('users')
 export class UsersController {
   constructor(private readonly UsersService: UsersService) {}
@@ -36,26 +38,17 @@ export class UsersController {
   @Post()
   create(
     @Body()
-    user: {
-      name: string;
-      email: string;
-      password: string;
-      role: 'INTERN' | 'ADMIN' | 'ENGINEER';
-    },
+    createUserDto: CreateUserDto,
   ) {
-    return this.UsersService.create(user);
+    return this.UsersService.create(createUserDto);
   }
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body()
-    userUpadte: {
-      name?: string;
-      password?: string;
-      role?: 'INTERN' | 'ADMIN' | 'ENGINEER';
-    },
+    updateUserDto: UpdateUserDto,
   ) {
-    return this.UsersService.update(id, userUpadte);
+    return this.UsersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
