@@ -33,16 +33,32 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body() user: {}) {
-    return user;
+  create(
+    @Body()
+    user: {
+      name: string;
+      email: string;
+      password: string;
+      role: 'INTERN' | 'ADMIN' | 'ENGINEER';
+    },
+  ) {
+    return this.UsersService.create(user);
   }
   @Patch(':id')
-  update(@Param('id') id: string, @Body() userUpadte: {}) {
-    return { id, ...userUpadte };
+  update(
+    @Param('id') id: string,
+    @Body()
+    userUpadte: {
+      name?: string;
+      password?: string;
+      role?: 'INTERN' | 'ADMIN' | 'ENGINEER';
+    },
+  ) {
+    return this.UsersService.update(+id, userUpadte);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return { id };
+    return this.UsersService.delete(+id);
   }
 }
