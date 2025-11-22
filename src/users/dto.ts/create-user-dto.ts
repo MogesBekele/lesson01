@@ -18,7 +18,7 @@ export class CreateUserDto {
   name: string;
 
   @IsEmail()
-  email: string;
+  email: string; 
 
   @IsEnum(Role, {
     message: 'role must be INTERN, ADMIN, or ENGINEER',
